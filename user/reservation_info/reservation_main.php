@@ -40,7 +40,8 @@ $result = mysqli_query($con, $sql);
 
 echo "<h3>[예약 결과]</h3>";
 if ($result) {
-   echo "예약이 완료되었습니다.<br>";
+   echo "사용자 아이디 ".$user_id;
+   echo "님의 예약이 완료되었습니다.<br>";
 } else {
    echo "데이터 입력에 실패하였습니다.";
    echo "실패 원인: " . mysqli_error($con);
@@ -65,7 +66,6 @@ if ($row_return) {
 
 mysqli_close($con);
 
-echo "<br> <a href='reservation_info_main.php'> 나의 예약 조회 </a>";
-echo "<br> <a href='../search_reservation/search_main.php'> 항공권 조회/예약하기 </a>";
-echo "<br> <a href='../user.php'> 메인화면으로 </a>";
+echo "<br> <a href='reservation_info_main.php?user_id=".$user_id."'> 나의 예약 조회 </a>";
+echo "<br> <a href='../user.php?user_id=".$user_id."'> 메인화면으로 </a>";
 ?>

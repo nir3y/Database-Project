@@ -4,10 +4,11 @@ $con = mysqli_connect("localhost", "202101516user", "202101516pw", "flight_reser
 $dep_airport = $_POST["dep_airport"];
 $arr_airport = $_POST["arr_airport"];
 $go_date = $_POST["go_date"];
+$user_id = $_POST["user_id"];
 
 
 echo "<h3>[항공권 조회 결과]</h3>";
-echo "<p>선택 정보: " . $dep_airport . " - " . $arr_airport . " (" . $go_date . ")</p>";
+echo "<p><strong>선택 정보: " . $dep_airport . " - " . $arr_airport . " (" . $go_date . ")</strong></p>";
 $sql = "SELECT airline.airline_name,flight.flight_id, flight.dep_date, flight.arr_date, flight.dep_airport, flight.arr_airport, flight.price 
             FROM flight 
             JOIN airline ON flight.airline_id = airline.airline_id
@@ -49,7 +50,7 @@ if (mysqli_num_rows($result) > 0) {
         echo "<td>" . $arr_time_display . "</td>";
         echo "<td>" . $flight_hours . "시간 " . $flight_minutes . "분</td>";
         echo "<td>" . $row['price'] . "</td>";
-        echo "<td><a href='../reservation_info/reservation_main.php?flight_id_1=" . $row['flight_id'] . "'>예약</a></td>";
+        echo "<td><a href='../reservation_info/reservation_main.php?flight_id_1=" . $row['flight_id'] . "&user_id=" . $user_id . "'>예약</a></td>";
         echo "</tr>";
     }
     echo "</table>";

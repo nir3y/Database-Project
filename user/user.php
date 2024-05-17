@@ -14,7 +14,7 @@
 
     <ul>
         <li><a href="search_reservation/search_main.php?user_id=<?php echo $user_id; ?>">항공권 조회/예약</a></li>
-        <li><a href="reservation_info/reservation_info_main.php?<?php echo $user_id; ?>">예약 정보 확인</a></li>
+        <li><a href="reservation_info/reservation_info_main.php?user_id=<?php echo $user_id; ?>">예약 정보 확인</a></li>
     </ul>
     <a href="login.php">로그인 화면으로</a>
     <br>

@@ -1,12 +1,14 @@
 <?php
  $con=mysqli_connect("localhost","202101516user","202101516pw","flight_reservationdb") or die(mysqli_error($con));
  
- $sql="SELECT * FROM reservation_info";
  $user_id = $_GET["user_id"]; // 사용자 아이디를 받아옴
+ $sql="SELECT * FROM reservation_info WHERE user_id = '$user_id' ";
+
  $result=mysqli_query($con,$sql);
 
- echo "<h2>[예약 정보(reservation_info) 테이블]</h2>";
- echo "<I>(편도 항공권을 예약한 경우, flight_id_2는 NULL 값을 가짐)</I><BR><BR> ";
+ echo "<h2>[나의 예약 정보]</h2>";
+ echo "사용자 아이디: ".$user_id;
+ echo "<I><br><br>(편도 항공권을 예약한 경우, 오는 편은 NULL 값을 가짐)</I><BR><BR> ";
 
  if($result){
     echo mysqli_num_rows($result), "건의 결과가 검색되었습니다. ";
@@ -18,7 +20,7 @@
 
  echo "<TABLE BORDER=1>";
  echo "<TR>";
- echo "<TH>res_id</TH> <TH>user_id</TH> <TH>flight_id_1</TH> <TH>flight_id_2</TH> <TH>res_date</TH>";
+ echo "<TH>예약 번호</TH> <TH>사용자 아이디</TH> <TH>가는 편</TH> <TH>오는 편</TH> <TH>예약일자</TH>";
 
  echo "</TR>";
 
@@ -34,6 +36,6 @@
 
  mysqli_close($con);
  echo "</TABLE>";
- echo "<br> <A HREF='../../main.html'> 이전으로 </A>";
+ echo "<br> <A HREF='../user.php?user_id=".$user_id."'> 이전으로 </A>";
 
 ?>

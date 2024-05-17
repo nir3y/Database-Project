@@ -7,7 +7,6 @@
 </head>
 <body>
     <h2>[항공권 조회/예약]</h2>
-
     <form method="post" id="flight_form">
         출발지
         <select name="dep_airport">
@@ -45,14 +44,17 @@
         
         가는 편 <input type="date" name="go_date" >
         오는 편 <input type="date" name="back_date" id="back_date">
-        <!-- user_id를 숨겨진 필드로 전달 -->
+        
+        <!-- user.php에서 받아온 user_id를 다시 전송 -->
         <input type="hidden" name="user_id" value="<?php echo isset($_GET['user_id']) ? $_GET['user_id'] : ''; ?>"> 
      <input type="submit" value="검색하기">
     </form>
     
     <input type="checkbox" name="one_way" id="checkbox_id" onclick="disableBackDate()"> 편도 항공편
     <br><br>
-    <a href="../user.php">이전으로</a>
+    <a href="../user.php?user_id=<?php echo  $_GET['user_id']; ?>">이전으로</a>
+   
+    
 </body>
 
 <script>

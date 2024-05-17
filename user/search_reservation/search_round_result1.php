@@ -6,6 +6,7 @@ $dep_airport = $_GET["dep_airport"];
 $arr_airport = $_GET["arr_airport"];
 $go_date = $_GET["go_date"];
 $back_date = $_GET["back_date"];
+$user_id = $_GET["user_id"];
 
 // 가는 편 항공편 정보 가져오기
 $sql_go = "SELECT dep_airport, arr_airport, dep_date, arr_date FROM flight WHERE flight_id = '$flight_id'";
@@ -56,7 +57,7 @@ if(mysqli_num_rows($result) > 0) {
         echo "<td>" . $arr_time_display . "</td>";
         echo "<td>" . $flight_hours . "시간 " . $flight_minutes . "분</td>";
         echo "<td>" . $row['price'] . "</td>";
-        echo "<td><a href='../reservation_info/reservation_main.php?flight_id_1=".$flight_id."&flight_id_2=".$row['flight_id']."'>예약</a></td>";
+        echo "<td><a href='../reservation_info/reservation_main.php?flight_id_1=".$flight_id."&flight_id_2=".$row['flight_id']."&user_id=" . $user_id . "'>예약</a></td>";
         echo "</tr>";
     }
     echo "</table>";

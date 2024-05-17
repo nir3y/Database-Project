@@ -5,6 +5,7 @@ $dep_airport = $_POST["dep_airport"];
 $arr_airport = $_POST["arr_airport"];
 $go_date = $_POST["go_date"];
 $back_date = $_POST["back_date"];
+$user_id = $_POST["user_id"];
 
 echo "<h3>[전체 항공권 조회 결과 - 왕복]</h3>";
 echo "<p>선택 정보: " . $dep_airport . " - " . $arr_airport . " (" . $go_date . " ~ ".$back_date.")</p>";
@@ -49,7 +50,7 @@ if(mysqli_num_rows($result) > 0) {
         echo "<td>" . $arr_time_display . "</td>";
         echo "<td>" . $flight_hours . "시간 " . $flight_minutes . "분</td>";
         echo "<td>" . $row['price'] . "</td>";
-        echo "<td><a href='search_round_result1.php?flight_id=".$row['flight_id']."&dep_airport=".$dep_airport."&arr_airport=".$arr_airport."&go_date=".$go_date."&back_date=".$back_date."'>예약</a></td>";
+        echo "<td><a href='search_round_result1.php?flight_id=".$row['flight_id']."&dep_airport=".$dep_airport."&arr_airport=".$arr_airport."&go_date=".$go_date."&back_date=".$back_date."&user_id=" . $user_id . "'>예약</a></td>";
         echo "</tr>";
     }
     echo "</table>";
