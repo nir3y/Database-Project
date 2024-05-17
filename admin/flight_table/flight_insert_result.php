@@ -11,7 +11,8 @@
  $avail_seat = $_POST["avail_seat"];
 
 
- $sql = "INSERT INTO flight VALUES('".$flight_id."','".$airline_id."','".$dep_airport."','".$arr_airport."','".$dep_date."','".$arr_date."','".$price."','".$avail_seat."')";
+ $sql = "INSERT INTO flight VALUES('".$flight_id."','".$airline_id."',
+ '".$dep_airport."','".$arr_airport."','".$dep_date."','".$arr_date."','".$price."','".$avail_seat."')";
  $result = mysqli_query($con,$sql);
 
  echo "<H3>[신규 항공편 등록 결과]</H3>";

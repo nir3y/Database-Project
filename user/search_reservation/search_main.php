@@ -8,7 +8,7 @@
 <body>
     <h2>[항공권 조회/예약]</h2>
 
-    <form method="post" action="search_result.php">
+    <form method="post" id="flight_form">
         출발지
         <select name="dep_airport">
             <option value="" disabled selected>출발지</option> 
@@ -55,6 +55,17 @@
 </body>
 
 <script>
+    // 폼의 action 속성 설정
+    function setFormAction(){
+        let form =document.getElementById("flight_form");
+        let checkbox = document.getElementById("checkbox_id");
+        if (checkbox.checked) {
+            form.action = "search_result.php";
+        } else {
+            form.action = "search_round_result.php";
+        }
+    }
+
      // 체크박스 클릭 시 가는 편 날짜만 선택할 수 있도록
     function disableBackDate() {
         let checkbox = document.getElementById("checkbox_id");
@@ -64,6 +75,8 @@
         } else {
             backdate.disabled = false;
         }
+        setFormAction();
     }
+    setFormAction();
 </script>
 </html>
