@@ -45,13 +45,14 @@
         
         가는 편 <input type="date" name="go_date" >
         오는 편 <input type="date" name="back_date" id="back_date">
-
+        <!-- user_id를 숨겨진 필드로 전달 -->
+        <input type="hidden" name="user_id" value="<?php echo isset($_GET['user_id']) ? $_GET['user_id'] : ''; ?>"> 
      <input type="submit" value="검색하기">
     </form>
     
     <input type="checkbox" name="one_way" id="checkbox_id" onclick="disableBackDate()"> 편도 항공편
     <br><br>
-    <a href="../user.html">이전으로</a>
+    <a href="../user.php">이전으로</a>
 </body>
 
 <script>

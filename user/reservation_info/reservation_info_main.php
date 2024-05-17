@@ -1,7 +1,8 @@
 <?php
  $con=mysqli_connect("localhost","202101516user","202101516pw","flight_reservationdb") or die(mysqli_error($con));
+ 
  $sql="SELECT * FROM reservation_info";
-
+ $user_id = $_GET["user_id"]; // 사용자 아이디를 받아옴
  $result=mysqli_query($con,$sql);
 
  echo "<h2>[예약 정보(reservation_info) 테이블]</h2>";
