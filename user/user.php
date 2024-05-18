@@ -18,9 +18,6 @@
     </ul>
     <a href="login.php">로그인 화면으로</a>
     <br>
-    <a href="../main.html">모드 선택 화면으로</a>
-    
-
-    
+    <a href="../main.html">모드 선택 화면으로</a>    
 </body>
 </html>

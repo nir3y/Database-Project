@@ -26,7 +26,7 @@ if (mysqli_num_rows($result) == 0) {
    echo mysqli_num_rows($result), "건의 결과가 검색되었습니다. ";
    echo "<TABLE BORDER=1>";
    echo "<TR>";
-   echo "<TH>예약 번호</TH> <TH>사용자</TH> <TH>가는 편</TH> <TH>오는 편</TH> <TH>예약일자</TH> <TH>상세정보</TH>  <TH>예약취소</TH>";
+   echo "<TH>예약 번호</TH> <TH>사용자</TH> <TH>가는 편</TH> <TH>오는 편</TH> <TH>예약 일시</TH> <TH>상세정보</TH>  <TH>예약취소</TH>";
    echo "</TR>";
 
    while ($row = mysqli_fetch_array($result)) {
@@ -40,7 +40,7 @@ if (mysqli_num_rows($result) == 0) {
          echo"<TD></TD>";
       }
       echo "<TD>", $row["res_date"], "</TD>";
-      echo "<TD>", "<A HREF='reservation_info_detail.php?user_id=" . $user_id . "&res_id=" . $row['res_id'] . "'>보기</A></TD>";
+      echo "<TD>", "<A HREF='reservation_info_detail.php?user_id=" . $user_id . "&res_id=" . $row['res_id'] . "&flight_id_2=".$row['flight_id_2']."'>보기</A></TD>";
       echo "<TD>", "<A HREF='reservation_info_delete.php?user_id=" . $user_id . "&res_id=" . $row['res_id'] . "'>취소</A></TD>";
       echo "</TR>";
    }

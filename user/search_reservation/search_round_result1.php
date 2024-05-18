@@ -8,7 +8,7 @@ $go_date = $_GET["go_date"];
 $back_date = $_GET["back_date"];
 $user_id = $_GET["user_id"];
 
-// 가는 편 항공편 정보 가져오기
+// 오는 편 항공편 정보 가져오기
 $sql_go = "SELECT dep_airport, arr_airport, dep_date, arr_date FROM flight WHERE flight_id = '$flight_id'";
 $result_go = mysqli_query($con, $sql_go);
 $row_go = mysqli_fetch_assoc($result_go);
@@ -27,17 +27,8 @@ $result = mysqli_query($con,$sql);
 echo mysqli_num_rows($result), "건의 항공편이 검색되었습니다. ";
 
 if(mysqli_num_rows($result) > 0) {
-    echo "<table border='1'>
-            <tr>
-                <th>항공사</th>
-                <th>출발공항</th>
-                <th>출발시간</th>
-                <th>도착공항</th>
-                <th>도착시간</th>
-                <th>비행시간</th>
-                <th>가격</th>
-                <th>예약</th>
-            </tr>";
+    echo "<table border='1'>";
+    echo "<tr><th>항공사</th><th>출발공항</th><th>출발시간</th><th>도착공항</th><th>도착시간</th><th>비행시간</th><th>가격</th><th>예약</th></tr>";
     while($row = mysqli_fetch_assoc($result)) {
         // 비행시간 계산
         $dep_time = strtotime($row['dep_date']);
@@ -64,6 +55,6 @@ if(mysqli_num_rows($result) > 0) {
 } else {
     echo "조회된 항공편이 없습니다.";
 }
-
+echo "<br> <A HREF='search_main.php?user_id=" . $user_id . "'> 처음부터 다시 예약하기 </A>";
 mysqli_close($con);
 ?>
