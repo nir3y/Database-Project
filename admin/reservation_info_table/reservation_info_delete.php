@@ -36,61 +36,12 @@
 
 <BODY>
     <H2>[예약 정보 삭제]</H2>
-
     <form method="post" action="reservation_info_delete_result.php">
         <ul>
             <li>res_id: <input type="text" name="res_id" value=<?php echo $res_id ?> READONLY></li>
-            <li>
-                user_id: 
-                <select name="user_id" value=<?php echo $user_id ?> disabled> <!--등록된 user_id만 combobox에서 선택해서 사용할 수 있도록-->
-                    <?php
-                        $con=mysqli_connect("localhost","202101516user","202101516pw","flight_reservationdb") or die(mysqli_error($con));
-                        $sql = "SELECT user_id, user_name FROM users";
-                        $result = mysqli_query($con, $sql);
-                        if(mysqli_num_rows($result) > 0){
-                            while($row = mysqli_fetch_assoc($result)){
-                                $selected = ($row['user_id'] == $user_id) ? "selected" : ""; // 선택된 값인지 확인
-                                echo "<option value='".$row['user_id']."' ".$selected.">".$row['user_id']."(".$row['user_name'].")</option>";     
-                            }
-                        }
-                        mysqli_close($con);
-                    ?>
-                </select>
-            </li>
-            <li>
-                flight_id_1: 
-                <select name="flight_id_1" value=<?php echo $flight_id_1 ?> disabled> <!--등록된 flight_id_1만 combobox에서 선택해서 사용할 수 있도록-->
-                    <?php
-                        $con=mysqli_connect("localhost","202101516user","202101516pw","flight_reservationdb") or die(mysqli_error($con));
-                        $sql = "SELECT flight_id,dep_airport,arr_airport FROM flight";
-                        $result = mysqli_query($con, $sql);
-                        if(mysqli_num_rows($result) > 0){
-                            while($row = mysqli_fetch_assoc($result)){
-                                $selected = ($row['flight_id'] == $flight_id_1) ? "selected" : ""; // 선택된 값인지 확인
-                                echo "<option value='".$row['flight_id']."' ".$selected.">".$row['flight_id']."(".$row['dep_airport'].">".$row['arr_airport'].")</option>";
-                            }
-                        }
-                        mysqli_close($con);
-                    ?>
-                </select>
-            </li>
-            <li>
-                flight_id_2: 
-                <select name="flight_id_2" value=<?php echo $flight_id_2 ?> disabled> <!--등록된 flight_id_2만 combobox에서 선택해서 사용할 수 있도록-->
-                    <option value="">NULL</option>
-                    <?php
-                        $con=mysqli_connect("localhost","202101516user","202101516pw","flight_reservationdb") or die(mysqli_error($con));
-                        $sql = "SELECT flight_id,dep_airport,arr_airport FROM flight";
-                        $result = mysqli_query($con, $sql);
-                        if(mysqli_num_rows($result) > 0){
-                            while($row = mysqli_fetch_assoc($result)){
-                                $selected = ($row['flight_id'] == $flight_id_2) ? "selected" : ""; // 선택된 값인지 확인
-                                echo "<option value='".$row['flight_id']."' ".$selected.">".$row['flight_id']."(".$row['dep_airport']." > ".$row['arr_airport'].")</option>";                            }
-                        }
-                        mysqli_close($con);
-                    ?>
-                </select>
-            </li>
+            <li>user_id: <input type="text" name="user_id" value=<?php echo $user_id ?> READONLY></li>
+            <li>flight_id_1: <input type="text" name="flight_id_1" value=<?php echo $flight_id_1 ?> READONLY></li>
+            <li>flight_id_2: <input type="text" name="flight_id_2" value=<?php echo $flight_id_2 ?> ></li>
             <li>res_date: <input type="datetime-local" name="res_date" value=<?php echo date('Y-m-d\TH:i', strtotime($res_date)) ?> READONLY></li>
         </ul>
         위 예약 정보를 삭제하시겠습니까?

@@ -6,7 +6,7 @@
     <title>항공권 조회/예약</title>
 </head>
 <body>
-    <h2>[항공권 조회/예약]</h2>
+    <h2>[항공권 조회/예약]</h2> 
     <form method="post" id="flight_form">
         출발지
         <select name="dep_airport">

@@ -41,23 +41,7 @@
     <form method="post" action="flight_delete_result.php">
         <ul>
             <li>flight_id: <input type="number" name="flight_id" value=<?php echo $flight_id ?> READONLY></li>
-            <li>
-                airline_id: 
-                <select name="airline_id" disabled> <!--등록된 airline_id만 combobox에서 선택해서 사용할 수 있도록-->
-                    <?php
-                        $con=mysqli_connect("localhost","202101516user","202101516pw","flight_reservationdb") or die(mysqli_error($con));
-                        $sql = "SELECT airline_id, airline_name FROM airline";
-                        $result = mysqli_query($con, $sql);
-                        if(mysqli_num_rows($result) > 0){
-                            while($row = mysqli_fetch_assoc($result)){
-                                $selected = ($row['airline_id'] == $airline_id) ? "selected" : ""; // 선택된 값인지 확인
-                                echo "<option value='".$row['airline_id']."' ".$selected.">".$row['airline_name']."(".$row['airline_id'].")</option> ";
-                            }
-                        }
-                        mysqli_close($con);
-                    ?>
-                </select>
-            </li>
+            <li>airline_id: <input type="text" name="airline_id" value=<?php echo $airline_id ?> READONLY></li>
             <li>dep_airport: <input type="text" name="dep_airport" value=<?php echo $dep_airport ?> READONLY ></li>
             <li>arr_airport: <input type="text" name="arr_airport" value=<?php echo $arr_airport ?> READONLY></li>
             <li>dep_date: <input type="datetime-local" name="dep_date" value=<?php echo date('Y-m-d\TH:i', strtotime($dep_date)) ?> READONLY ></li>

@@ -32,10 +32,10 @@ if ($flight_id_2 !== null) {
 }
 
 $res_id = mt_rand(100000, 999999); // 6자리 랜덤 숫자 생성 -> 예약 아이디
-$res_date = date('Y-m-d H:i:s');
+
 
 $sql = "INSERT INTO reservation_info (res_id, user_id, flight_id_1, flight_id_2, res_date) 
-        VALUES ('$res_id', '$user_id', '$flight_id_1', " . ($flight_id_2 ? "'$flight_id_2'" : "NULL") . ", '$res_date')";
+        VALUES ('$res_id', '$user_id', '$flight_id_1', " . ($flight_id_2 ? "'$flight_id_2'" : "NULL") . ",NOW())";
 $result = mysqli_query($con, $sql);
 
 echo "<h3>[예약 결과]</h3>";
