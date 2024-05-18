@@ -26,12 +26,9 @@ $flight_id_1 = $row["flight_id_1"];
 $flight_id_2 = $row["flight_id_2"];
 $res_date = $row["res_date"];
 
-
 ?>
 
-
 <HTML>
-
 <HEAD>
     <META http-equiv="content-type" content="text/html; charset=utf-8">
 </HEAD>

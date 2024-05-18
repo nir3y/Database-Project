@@ -27,7 +27,7 @@
  $dep_date = $row["dep_date"];
  $arr_date = $row["arr_date"];
  $price = $row["price"];
- $avail_seat = $row["avail_seat"];
+
 
 ?>
 
@@ -47,7 +47,6 @@
             <li>dep_date: <input type="datetime-local" name="dep_date" value=<?php echo date('Y-m-d\TH:i', strtotime($dep_date)) ?> READONLY ></li>
             <li>arr_date: <input type="datetime-local" name="arr_date" value=<?php echo date('Y-m-d\TH:i', strtotime($arr_date)) ?> READONLY></li>
             <li>price: <input type="number" name="price" value=<?php echo $price ?> READONLY></li>
-            <li>avail_seat: <input type="number" name="avail_seat" value=<?php echo $avail_seat ?> READONLY ></li>
         </ul>
         위 항공편 정보를 삭제하시겠습니까?
         <input type="submit" value="삭제">

@@ -8,10 +8,11 @@
  $dep_date = $_POST["dep_date"];
  $arr_date = $_POST["arr_date"];
  $price = $_POST["price"];
- $avail_seat = $_POST["avail_seat"];
 
 
- $sql = "UPDATE flight SET flight_id='".$flight_id."',airline_id='".$airline_id."',dep_airport='".$dep_airport."',arr_airport='".$arr_airport."',dep_date='".$dep_date."',arr_date='".$arr_date."', price='".$price."', avail_seat='".$avail_seat."' WHERE flight_id='".$flight_id."'";
+
+ $sql = "UPDATE flight SET flight_id='".$flight_id."',airline_id='".$airline_id."',dep_airport='".$dep_airport."',arr_airport='".$arr_airport."',dep_date='".$dep_date."',arr_date='".$arr_date."', price='".$price."'
+  WHERE flight_id='".$flight_id."'";
  $result = mysqli_query($con,$sql);
 
  echo "<H3>[항공편 정보 수정 결과]</H3>";

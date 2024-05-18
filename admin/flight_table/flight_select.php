@@ -17,7 +17,7 @@
  echo "<A HREF='flight_insert.php'>신규 항공편 등록</A>";
  echo "<TABLE BORDER=1>";
  echo "<TR>";
- echo "<TH>flight_id</TH> <TH>airline_id</TH> <TH>dep_airport</TH> <TH>arr_airport</TH> <TH>dep_date</TH> <TH>arr_date</TH> <TH>price</TH> <TH>avail_seat</TH>";
+ echo "<TH>flight_id</TH> <TH>airline_id</TH> <TH>dep_airport</TH> <TH>arr_airport</TH> <TH>dep_date</TH> <TH>arr_date</TH> <TH>price</TH>";
  echo "<TH>수정</TH> <TH>삭제</TH>";
  echo "</TR>";
 
@@ -30,7 +30,6 @@
     echo "<TD>", $row["dep_date"],"</TD>";
     echo "<TD>", $row["arr_date"],"</TD>";
     echo "<TD>", $row["price"],"</TD>";
-    echo "<TD>", $row["avail_seat"],"</TD>";
     echo "<TD>","<A HREF='flight_update.php?flight_id=", $row['flight_id'], "'>수정</A></TD>";
     echo "<TD>","<A HREF='flight_delete.php?flight_id=", $row['flight_id'], "'>삭제</A></TD>";
     echo "</TR>";

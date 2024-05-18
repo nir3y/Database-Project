@@ -8,11 +8,10 @@
  $dep_date = $_POST["dep_date"];
  $arr_date = $_POST["arr_date"];
  $price = $_POST["price"];
- $avail_seat = $_POST["avail_seat"];
 
 
  $sql = "INSERT INTO flight VALUES('".$flight_id."','".$airline_id."',
- '".$dep_airport."','".$arr_airport."','".$dep_date."','".$arr_date."','".$price."','".$avail_seat."')";
+ '".$dep_airport."','".$arr_airport."','".$dep_date."','".$arr_date."','".$price."'')";
  $result = mysqli_query($con,$sql);
 
  echo "<H3>[신규 항공편 등록 결과]</H3>";

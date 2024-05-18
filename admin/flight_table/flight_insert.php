@@ -57,7 +57,6 @@
             <li>dep_date: <input type="datetime-local" name="dep_date"></li>
             <li>arr_date: <input type="datetime-local" name="arr_date"></li>
             <li>price: <input type="number" name="price"></li>
-            <li>avail_seat: <input type="number" name="avail_seat"></li>
         </ul>
         <input type="submit" value="등록">
     </form>

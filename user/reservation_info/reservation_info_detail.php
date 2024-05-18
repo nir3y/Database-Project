@@ -1,101 +1,81 @@
 <?php
- $con=mysqli_connect("localhost","202101516user","202101516pw","flight_reservationdb") or die(mysqli_error($con));
- 
- $sql="SELECT * FROM reservation_info WHERE res_id='".$_GET['res_id']."'";
+$con = mysqli_connect("localhost", "202101516user", "202101516pw", "flight_reservationdb") or die(mysqli_error($con));
 
- $result=mysqli_query($con,$sql);
- if($result){
-    $count=mysqli_num_rows($result);
-    if($count==0){
-        echo $_GET['res_id']." 아이디의 예약 정보가 존재하지 않습니다"."<BR>";
-        echo "<BR> <A HREF='reservation_info_select.php'> 예약 정보 테이블로 돌아가기 </A>";
-        exit(); 
-    }
- }
- else{
-    echo "데이터 검색에 실패했습니다.<br>";
-    echo "실패 원인:".mysqli_error($con);
-    echo "<BR> <A HREF='reservation_info_select.php'> 예약 정보 테이블로 돌아가기 </A>";
-    exit();
- }
+$user_id = $_GET["user_id"]; // 로그인 된 사용자 아이디 받아오기
 
- $row = mysqli_fetch_array($result);
- $res_id = $row["res_id"];
- $user_id = $row["user_id"];
- $flight_id_1 = $row["flight_id_1"];
- $flight_id_2 = $row["flight_id_2"];
- $res_date = $row["res_date"];
- 
+// 이거 어떻게 할 지 결정해야함. 상세 정보 조회해야함.
+$sql = "SELECT reservation_info.*, users.user_name,
+ flight1.airline_id, flight1.dep_airport, flight1.arr_airport,
+ flight2.airline_id AS airline_id2, flight2.dep_airport AS dep_airport2, flight2.arr_airport AS arr_airport2
+ FROM reservation_info
+ INNER JOIN users ON reservation_info.user_id = users.user_id
+ LEFT JOIN flight AS flight1 ON reservation_info.flight_id_1 = flight1.flight_id 
+ LEFT JOIN flight AS flight2 ON reservation_info.flight_id_2 = flight2.flight_id
+ WHERE reservation_info.user_id = '$user_id'
+ ";
+
+
+// 가는 편 항공편 정보 가져오기
+$sql_go = "
+    SELECT flight.*, airline.airline_name, airline.airline_id
+    FROM flight
+    JOIN airline ON flight.airline_id = airline.airline_id
+    WHERE flight.flight_id = '$flight_id_1'
+";
+$result_go = mysqli_query($con, $sql_go);
+$row_go = mysqli_fetch_assoc($result_go);
+
+
+
+if ($flight_id_2 !== null) {
+   // 오는 편 항공편 정보 가져오기
+   $sql_return = "
+        SELECT flight.*, airline.airline_name, airline.airline_id
+        FROM flight
+        JOIN airline ON flight.airline_id = airline.airline_id
+        WHERE flight.flight_id = '$flight_id_2'
+    ";
+   $result_return = mysqli_query($con, $sql_return);
+   $row_return = mysqli_fetch_assoc($result_return);
+} else {
+   $row_return = null;
+}
+
+$res_id = mt_rand(100000, 999999); // 6자리 랜덤 숫자 생성 -> 예약 아이디
+
+
+$sql = "INSERT INTO reservation_info (res_id, user_id, flight_id_1, flight_id_2, res_date) 
+        VALUES ('$res_id', '$user_id', '$flight_id_1', " . ($flight_id_2 ? "'$flight_id_2'" : "NULL") . ",NOW())";
+$result = mysqli_query($con, $sql);
+
+echo "<h3>[예약 결과]</h3>";
+if ($result) {
+   echo "사용자 아이디 ".$user_id;
+   echo "님의 예약이 완료되었습니다.<br>";
+} else {
+   echo "데이터 입력에 실패하였습니다.";
+   echo "실패 원인: " . mysqli_error($con);
+}
+
+echo "<h3>[예약 정보]</h3>";
+echo "<strong>예약번호: " . $res_id . "</strong>";
+
+echo "<p><strong>가는 편:</strong></p>";
+echo "<p>항공사: " . $row_go['airline_name'] . " </p>";
+echo "<p>편명: " . $row_go['airline_id'] . $row_go['flight_id'] . "</p>";
+echo "<p>출발: " . $row_go['dep_airport'] . " (" . $row_go['dep_date'] . ")</p>";
+echo "<p>도착: " . $row_go['arr_airport'] . " (" . $row_go['arr_date'] . ")</p>";
+
+if ($row_return) {
+   echo "<p><strong>오는 편:</strong></p>";
+   echo "<p>항공사: " . $row_return['airline_name'] . " </p>";
+   echo "<p>편명: " . $row_return['airline_id'] . $row_return['flight_id'] . "</p>";
+   echo "<p>출발: " . $row_return['dep_airport'] . " (" . $row_return['dep_date'] . ")</p>";
+   echo "<p>도착: " . $row_return['arr_airport'] . " (" . $row_return['arr_date'] . ")</p>";
+}
+
+mysqli_close($con);
+
+echo "<br> <a href='reservation_info_main.php?user_id=".$user_id."'> 나의 예약 조회 </a>";
+echo "<br> <a href='../user.php?user_id=".$user_id."'> 메인화면으로 </a>";
 ?>
-
-<HTML>
-    <HEAD>
-    <META http-equiv="content-type" content="text/html; charset=utf-8"> 
-    </HEAD>
-
-<BODY>
-    <H2>[예약 취소]</H2>
-
-    <form method="post" action="reservation_info_delete_result.php">
-        <ul>
-            <li>: <input type="text" name="res_id" value=<?php echo $res_id ?> READONLY></li>
-            <li>
-                user_id: 
-                <select name="user_id" value=<?php echo $user_id ?> disabled> <!--등록된 user_id만 combobox에서 선택해서 사용할 수 있도록-->
-                    <?php
-                        $con=mysqli_connect("localhost","202101516user","202101516pw","flight_reservationdb") or die(mysqli_error($con));
-                        $sql = "SELECT user_id, user_name FROM users";
-                        $result = mysqli_query($con, $sql);
-                        if(mysqli_num_rows($result) > 0){
-                            while($row = mysqli_fetch_assoc($result)){
-                                $selected = ($row['user_id'] == $user_id) ? "selected" : ""; // 선택된 값인지 확인
-                                echo "<option value='".$row['user_id']."' ".$selected.">".$row['user_id']."(".$row['user_name'].")</option>";     
-                            }
-                        }
-                        mysqli_close($con);
-                    ?>
-                </select>
-            </li>
-            <li>
-                flight_id_1: 
-                <select name="flight_id_1" value=<?php echo $flight_id_1 ?> disabled> <!--등록된 flight_id_1만 combobox에서 선택해서 사용할 수 있도록-->
-                    <?php
-                        $con=mysqli_connect("localhost","202101516user","202101516pw","flight_reservationdb") or die(mysqli_error($con));
-                        $sql = "SELECT flight_id,dep_airport,arr_airport FROM flight";
-                        $result = mysqli_query($con, $sql);
-                        if(mysqli_num_rows($result) > 0){
-                            while($row = mysqli_fetch_assoc($result)){
-                                $selected = ($row['flight_id'] == $flight_id_1) ? "selected" : ""; // 선택된 값인지 확인
-                                echo "<option value='".$row['flight_id']."' ".$selected.">".$row['flight_id']."(".$row['dep_airport'].">".$row['arr_airport'].")</option>";
-                            }
-                        }
-                        mysqli_close($con);
-                    ?>
-                </select>
-            </li>
-            <li>
-                flight_id_2: 
-                <select name="flight_id_2" value=<?php echo $flight_id_2 ?> disabled> <!--등록된 flight_id_2만 combobox에서 선택해서 사용할 수 있도록-->
-                    <option value="">NULL</option>
-                    <?php
-                        $con=mysqli_connect("localhost","202101516user","202101516pw","flight_reservationdb") or die(mysqli_error($con));
-                        $sql = "SELECT flight_id,dep_airport,arr_airport FROM flight";
-                        $result = mysqli_query($con, $sql);
-                        if(mysqli_num_rows($result) > 0){
-                            while($row = mysqli_fetch_assoc($result)){
-                                $selected = ($row['flight_id'] == $flight_id_2) ? "selected" : ""; // 선택된 값인지 확인
-                                echo "<option value='".$row['flight_id']."' ".$selected.">".$row['flight_id']."(".$row['dep_airport']." > ".$row['arr_airport'].")</option>";                            }
-                        }
-                        mysqli_close($con);
-                    ?>
-                </select>
-            </li>
-            <li>res_date: <input type="datetime-local" name="res_date" value=<?php echo date('Y-m-d\TH:i', strtotime($res_date)) ?> READONLY></li>
-        </ul>
-        위 예약 정보를 삭제하시겠습니까?
-        <input type="submit" value="삭제">
-    </form>
-    <br>
-    <a href="reservation_info_select.php">이전으로</a>
-</BODY>
-</HTML>
